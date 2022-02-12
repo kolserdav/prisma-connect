@@ -52,10 +52,7 @@ const updateMany = async (list) => {
   console.log(new Date(), `Updated part of ${list.length} items. Last id is ${list[list.length - 1].id}...`)
 }
 
-/**
- * Точка запуска скрипта
- */
-(async () => {
+const startScript = async () => {
   console.info(new Date(), 'Started change string to regex script...')
   let length = 0;
   let i = 1;
@@ -69,5 +66,12 @@ const updateMany = async (list) => {
     await updateMany(res);
     i ++;
   }
+}
+
+/**
+ * Точка запуска скрипта
+ */
+(async () => {
+  await startScript();
   process.exit(0);
 })();
