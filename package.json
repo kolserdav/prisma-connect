@@ -7,10 +7,18 @@
     "schema": "orm/schema.prisma"
   },
   "scripts": {
-    "pull": "prisma db pull"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "pull": "prisma db pull",
+    "dev:migrate": "npm run format && npm run generate && prisma migrate dev --preview-feature",
+    "generate": "prisma generate",
+    "format": "prisma format"
   },
   "dependencies": {
     "@prisma/client": "^3.9.2",
     "prisma": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.17"
   }
 }
