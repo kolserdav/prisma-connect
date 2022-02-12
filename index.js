@@ -29,10 +29,20 @@ const createFakeFields = async (count) => {
  */
 const findMany = async (part) => {
   const skip = TAKE * part - TAKE;
-  return prisma.test.findMany({
-    skip,
-    take: TAKE
-  });
+  /**
+   * @type {Test[]}
+   */
+  let res = [];
+  try { 
+    prisma.test.findMany({
+      skip,
+      take: TAKE
+    });
+  } catch (err) {
+    console.error(new Date(), 'Error findMany', err);
+    process.exit(1);
+  }
+  return res;
 }
 
 /**
@@ -40,18 +50,26 @@ const findMany = async (part) => {
  * @param {Test[]} list 
  */
 const updateMany = async (list) => {
-  await prisma.$transaction(
-    list.map((item) =>
-      prisma.test.upsert({
-        where: { id: item.id },
-        update: { target: item.target.replace(/\.webp/, '.jpg') },
-        create: item,
-      })
-    )
-  );
+  try {
+    await prisma.$transaction(
+      list.map((item) =>
+        prisma.test.upsert({
+          where: { id: item.id },
+          update: { target: item.target.replace(/\.webp/, '.jpg') },
+          create: item,
+        })
+      )
+    );
+  } catch (err) {
+    console.error(new Date(), 'Error updateMany', err);
+    process.exit(1);
+  }
   console.log(new Date(), `Updated part of ${list.length} items. Last id is ${list[list.length - 1].id}...`)
 }
 
+/**
+ * Старт скрипта
+ */
 const startScript = async () => {
   console.info(new Date(), 'Started change string to regex script...')
   let length = 0;
