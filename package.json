@@ -1,0 +1,16 @@
+{
+  "name": "jpg-to-webp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "prisma": {
+    "schema": "orm/schema.prisma"
+  },
+  "scripts": {
+    "pull": "prisma db pull"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.9.2",
+    "prisma": "^3.9.2"
+  }
+}
